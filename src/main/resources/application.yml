@@ -1,0 +1,34 @@
+
+server:
+  port: 19001
+ 
+spring:
+  application:
+    name: torino-fetcher
+    cloud:
+      service-registry:
+        auto-registration:
+          enabled: false
+  
+  kafka:
+    producer:
+      bootstrap-servers: 10.225.17.57:9092,10.225.17.57:9091
+
+
+# eureka:
+#   instance:
+#     instance-id: torino-fetcher
+#     prefer-ip-address: true
+#   client:
+#     service-url:
+#       defaultZone: http://10.225.28.117:19000/eureka/
+
+eureka:
+  client:
+    enabled: false
+    serviceUrl:
+      registerWithEureka: false
+
+app:
+  mq:
+    news-topic: torino-news-msg
