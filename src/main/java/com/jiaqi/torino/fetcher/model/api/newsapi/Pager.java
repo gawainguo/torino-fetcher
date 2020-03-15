@@ -13,4 +13,7 @@ public class Pager {
 
     private Integer pageSize;
 
+    public void nextPage() {
+        this.page += 1;
+    }
 }

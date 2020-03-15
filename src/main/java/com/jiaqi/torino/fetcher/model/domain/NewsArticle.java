@@ -18,4 +18,5 @@ public class NewsArticle {
     private String fetcherSource;
 
     private String publishTime;
+
 }

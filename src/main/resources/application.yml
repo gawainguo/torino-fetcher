@@ -5,29 +5,36 @@ server:
 spring:
   application:
     name: torino-fetcher
-    cloud:
-      service-registry:
-        auto-registration:
-          enabled: false
-  
+  # cloud:
+  #   service-registry:
+  #     auto-registration:
+  #       enabled: false
   kafka:
     producer:
       bootstrap-servers: 10.225.17.57:9092,10.225.17.57:9091
 
+  redis:
+    host: 10.225.17.57
+    port: 6379
+    password: torino_redis@Torino!
+    database: 1 # Fetcher db
+
+# Cloud Config
+eureka:
+  instance:
+    instance-id: torino-fetcher
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:19000/eureka/
+      # defaultZone: http://10.225.28.117:19000/eureka/
+# End of Cloud config
 
 # eureka:
-#   instance:
-#     instance-id: torino-fetcher
-#     prefer-ip-address: true
 #   client:
-#     service-url:
-#       defaultZone: http://10.225.28.117:19000/eureka/
-
-eureka:
-  client:
-    enabled: false
-    serviceUrl:
-      registerWithEureka: false
+#     enabled: false
+#     serviceUrl:
+#       registerWithEureka: false
 
 app:
   mq:

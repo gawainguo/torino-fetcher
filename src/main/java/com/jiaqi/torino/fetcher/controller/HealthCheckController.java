@@ -24,13 +24,6 @@ public class HealthCheckController {
     @Autowired
     private NewsMessageService newsMessageService;
 
-    @GetMapping("")
-    public Response health() {
-        logger.info("This is health");
-        logger.warn("This is unhealth");
-        return Response.success();
-    }
-
     @GetMapping("/check")
     public Response healthCheck() {
         ArticleList articles = handler.getTopHeadlines("us", null);
