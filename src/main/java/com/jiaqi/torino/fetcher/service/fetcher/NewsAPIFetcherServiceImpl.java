@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import com.jiaqi.torino.fetcher.constant.NewsAPIConstants;
 import com.jiaqi.torino.fetcher.exception.NewsAPIException;
 import com.jiaqi.torino.fetcher.model.api.newsapi.ArticleFilter;
 import com.jiaqi.torino.fetcher.model.api.newsapi.Pager;
@@ -34,6 +35,9 @@ public class NewsAPIFetcherServiceImpl implements NewsAPIFetcherService {
 
     @Autowired
     private NewsAPIService newsAPIService;
+
+    @Autowired
+    private FetcherStatsService statsService;
 
     private ExecutorService fetcherTaskPool = Executors.newFixedThreadPool(10);
 
@@ -66,6 +70,9 @@ public class NewsAPIFetcherServiceImpl implements NewsAPIFetcherService {
             }
             logger.info("Fetched articles count: " + articles.size());
     
+            // Submit stats data
+            statsService.updateDailyDomainStats(articles, NewsAPIConstants.FETCHER_NAME);
+
             // Produce to message queue
             articles.stream().forEach(article ->
                     newsMessageService.produceNewsMessage(article));

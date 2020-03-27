@@ -22,12 +22,11 @@ spring:
 # Cloud Config
 eureka:
   instance:
-    instance-id: torino-fetcher
     prefer-ip-address: true
   client:
     serviceUrl:
-      defaultZone: http://localhost:19000/eureka/
-      # defaultZone: http://10.225.28.117:19000/eureka/
+      # defaultZone: http://localhost:19000/eureka/
+      defaultZone: http://10.225.30.175:19000/eureka/
 # End of Cloud config
 
 # eureka:
