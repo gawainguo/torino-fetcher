@@ -21,7 +21,7 @@ Configutation:
 
   Loggers:
       Root:
-        level: debug
+        level: info
         AppenderRef:
           - ref: Console
           - ref: RollingFile

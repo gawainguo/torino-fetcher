@@ -4,6 +4,7 @@ import com.jiaqi.torino.fetcher.handler.api.NewsAPIHandler;
 import com.jiaqi.torino.fetcher.model.api.newsapi.ArticleList;
 import com.jiaqi.torino.fetcher.model.web.Response;
 import com.jiaqi.torino.fetcher.service.message.NewsMessageService;
+import com.jiaqi.torino.fetcher.service.message.TestMessageService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,11 +25,19 @@ public class HealthCheckController {
     @Autowired
     private NewsMessageService newsMessageService;
 
+    @Autowired
+    private TestMessageService testMessageService;
+
     @GetMapping("/check")
     public Response healthCheck() {
         ArticleList articles = handler.getTopHeadlines("us", null);
         articles.getArticles().stream().forEach(article ->
                 newsMessageService.produceNewsMessage(article.toNewsArticle()));
         return Response.success().data("result", articles);
+    }
+
+    @GetMapping("/msg")
+    public Response healthCheckMsg() {
+        return Response.success().data("result", testMessageService.produceTestMessage("health"));
     }
 }

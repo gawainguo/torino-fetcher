@@ -1,40 +1,38 @@
-
 server:
-  port: 19001
- 
+  port: 8989
+
 spring:
   application:
-    name: torino-fetcher
-  # cloud:
-  #   service-registry:
-  #     auto-registration:
-  #       enabled: false
+    name: torino-fetcher-local
+
+  cloud:
+    consul:
+      host: 10.225.25.89
+      port: 32357
+      discovery:
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 10s
+        instanceId: localhost
+        preferIpAddress: true
   kafka:
     producer:
       bootstrap-servers: 10.225.17.57:9092,10.225.17.57:9091
-
   redis:
     host: 10.225.17.57
     port: 6379
     password: torino_redis@Torino!
     database: 1 # Fetcher db
 
-# Cloud Config
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      # defaultZone: http://localhost:19000/eureka/
-      defaultZone: http://10.225.30.175:19000/eureka/
-# End of Cloud config
-
-# eureka:
-#   client:
-#     enabled: false
-#     serviceUrl:
-#       registerWithEureka: false
-
 app:
   mq:
     news-topic: torino-news-msg
+    test-topic: test-msg
+
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    info:
+      enabled: true
+    health:
+      enabled: true
